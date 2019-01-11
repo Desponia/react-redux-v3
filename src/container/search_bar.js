@@ -5,6 +5,7 @@ export default class SearchBar extends Component {
         super(props);
         this.state = { term: '' };
 
+        // 참조하는 callback이 있는 경우 바인딩 해야 한다고,,
         // this.onInputChange = this.onInputChange.bind(this)
     }
 
@@ -14,9 +15,13 @@ export default class SearchBar extends Component {
         this.setState({term: event.target.value})
     };
 
+    onFormSubmit = event => {
+        event.preventDefault()
+    };
+
     render() {
         return (
-            <form className="input-group">
+            <form onSubmit={this.onFormSubmit} className="input-group">
                 <input
                     placeholder="Get a five-day forecast in your favorite cities"
                     className="form-control"
