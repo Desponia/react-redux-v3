@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from "redux";
+import { fetchWeather } from "../actions/index";
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = { term: '' };
@@ -17,6 +20,11 @@ export default class SearchBar extends Component {
 
     onFormSubmit = event => {
         event.preventDefault()
+
+        // fetch weather data
+        this.props.fetchWeather(this.state.term);
+        this.setState({term: ''});
+
     };
 
     render() {
@@ -37,3 +45,10 @@ export default class SearchBar extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({fetchWeather}, dispatch)
+}
+
+// 1인자가 null(mapStateToProps)인 이유: redux 가 state를 유지하고 있으니 컨테이너는 state를 신경쓰지 않아도 되기 때문
+export default connect(null, mapDispatchToProps)(SearchBar)
