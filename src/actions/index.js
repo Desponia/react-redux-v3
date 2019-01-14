@@ -9,8 +9,9 @@ export const FETCH_WEATHER = 'FETCH_WEATHER';
 
 export const fetchWeather = (city) => {
     const url = `${ROOT_URL}&q=${city},us`;
-    // return: Promise
+    // return: Promise --> promise로 데이터가 반환? 되어 payload에 붙기 때문에 this.props.xxx 체크를 안해도 되는 것 같음..
     const request = axios.get(url);
+    console.log('Request : ', request)
 
     return {
         type: FETCH_WEATHER,
